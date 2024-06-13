@@ -1,6 +1,7 @@
 package br.com.alura.screenmatch.model;
 
 
+import br.com.alura.screenmatch.service.LibreTranslateConsult;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class Serie {
     @Column(name = "plot")
     private String plot;
 
-    @Transient
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Episode> episodes = new ArrayList<>();
 
 
@@ -52,8 +53,7 @@ public class Serie {
         this.genre = Category.fromString(serieData.genre().split(",")[0].trim());
         this.actors = serieData.actors();
         this.poster = serieData.poster();
-        // this.plot = ChatGPTConsult.getTraductor(serieData.plot()).trim();
-        this.plot = serieData.plot().trim();
+        this.plot = LibreTranslateConsult.getTranslate(serieData.plot()).trim();
     }
 
     public Long getId() {
@@ -92,16 +92,23 @@ public class Serie {
         return episodes;
     }
 
+    public void setEpisodes(List<Episode> episodes) {
+        //episodes.forEach(e -> e.setSerie(this));
+        this.episodes = episodes;
+    }
+
     @Override
     public String toString() {
         return "Serie{" +
-                "genre=" + genre +
+                "id=" + id +
                 ", title='" + title + '\'' +
                 ", totalSeasons=" + totalSeasons +
                 ", imdbRating=" + imdbRating +
+                ", genre=" + genre +
                 ", actors='" + actors + '\'' +
                 ", poster='" + poster + '\'' +
                 ", plot='" + plot + '\'' +
+                ", episodes=" + episodes +
                 '}';
     }
 }

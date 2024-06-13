@@ -50,6 +50,12 @@
             <artifactId>service</artifactId>
             <version>0.18.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>net.clojars.suuft</groupId>
+            <artifactId>libretranslate-java</artifactId>
+            <version>1.0.5</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -66,6 +72,12 @@
             <name>Maven Central</name>
             <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
+
+        <repository>
+            <id>clojars.org</id>
+            <url>https://repo.clojars.org</url>
+        </repository>
     </repositories>
+
 
 </project>
